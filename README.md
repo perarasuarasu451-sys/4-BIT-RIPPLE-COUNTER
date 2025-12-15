@@ -70,7 +70,8 @@ endmodule
 ```
 
 Program for 4 Bit Ripple Counter and verify its truth table in quartus using Verilog programming.
-<img width="555" height="707" alt="image" src="https://github.com/user-attachments/assets/e027266e-176a-4572-a662-c8b088819ace" />
+<img width="672" height="604" alt="Screenshot 2025-12-15 113416" src="https://github.com/user-attachments/assets/8c80c57a-a7f8-4dbb-97b7-d69eefdca4c1" />
+
 
  Developed by: PERARASU K RegisterNumber:25004665
 
