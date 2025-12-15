@@ -35,6 +35,39 @@ In timing diagram Q0 is changing as soon as the negative edge of clock pulse is 
 5.Conduct functional testing by displaying the count at each clock cycle for 16 cycles.
 
 **PROGRAM**
+```
+module deexp12(
+    input clk,     // Clock input
+    input reset,   // Reset input (active high)
+    output [3:0] q // 4-bit output
+);
+    // Internal signals for flip-flops
+    reg [3:0] q_int;
+
+    // Assign internal register to output
+    assign q = q_int;
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) 
+            q_int[0] <= 1'b0; // Reset the first bit to 0
+        else 
+            q_int[0] <= ~q_int[0]; // Toggle the first bit on clock edge
+    end
+
+    // Generate the other flip-flops based on the output of the previous one
+    genvar i;
+    generate
+        for (i = 1; i < 4; i = i + 1) begin : ripple
+            always @(posedge q_int[i-1] or posedge reset) begin
+                if (reset) 
+                    q_int[i] <= 1'b0; // Reset the bit to 0
+                else 
+                    q_int[i] <= ~q_int[i]; // Toggle the bit on clock edge of previous stage
+            end
+        end
+    endgenerate
+endmodule
+```
 
 Program for 4 Bit Ripple Counter and verify its truth table in quartus using Verilog programming.
 <img width="555" height="707" alt="image" src="https://github.com/user-attachments/assets/e027266e-176a-4572-a662-c8b088819ace" />
@@ -43,10 +76,10 @@ Program for 4 Bit Ripple Counter and verify its truth table in quartus using Ver
 
 
 **RTL LOGIC FOR 4 Bit Ripple Counter**
-<img width="617" height="783" alt="image" src="https://github.com/user-attachments/assets/f190d652-d356-4f13-b447-81442b2190b1" />
+![398186331-fe54814b-1638-4c64-bfd2-a119d55c56e6](https://github.com/user-attachments/assets/840ea2e6-0a98-4b14-b2b0-4250e88cd2bc)
 
 **TIMING DIGRAMS FOR 4 Bit Ripple Counter**
-<img width="1312" height="323" alt="image" src="https://github.com/user-attachments/assets/26448f88-cc62-4703-ba3b-6df8f622ad60" />
+![398186403-b6fb23ac-e606-4437-86d2-ca34473d7408](https://github.com/user-attachments/assets/eca4885d-0601-421f-8b9b-d623ea91743c)
 
 **RESULTS**
 Thus 4-BIT-RIPPLE-COUNTER is verified successfully.
